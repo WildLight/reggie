@@ -34,18 +34,25 @@ public class EmployeeController {
         //根据页面提交的用户名查询数据库
         LambdaQueryWrapper<Employee> wrapper=Wrappers.<Employee>lambdaQuery().eq(Employee::getUsername,employee.getUsername());
         Employee emp=employeeService.getOne(wrapper);
-        //
+        //判断用户是否存在
         if(emp==null){
             return R.error("该用户不存在");
         }
+        //判断密码是否输入正确
         if(!emp.getPassword().equals(employee.getPassword())){
             return R.error("密码不正确");
         }
+        //判断该用户是否被禁用
         if(emp.getStatus()!=1){
             return R.error("该用户不可用");
         }
         request.getSession().setAttribute("employee",emp.getId());
         emp.setPassword(null);
         return R.success(emp);
+    }
+    @PostMapping("/logout")
+    public R<String> logOut(HttpServletRequest request){
+        request.getSession().removeAttribute("employee");
+        return R.success("退出成功");
     }
 }
