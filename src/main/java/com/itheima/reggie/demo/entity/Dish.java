@@ -3,29 +3,38 @@ package com.itheima.reggie.demo.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class Employee implements Serializable {
-
+public class Dish implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Long id;
-
-    private String username;
-
+    //菜品名称
     private String name;
 
-    private String password;
+    //菜品分类id
+    private Long categoryId;
 
-    private String phone;
+    //菜品价格
+    private BigDecimal price;
 
-    private String sex;
+    //商品码
+    private String code;
 
-    private String idNumber;
+    // 图片
+    private String image;
 
+    // 描述信息
+    private String description;
+
+    //0 停售 1 起售
     private Integer status;
+
+    //顺序
+    private Integer sort;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
@@ -38,5 +47,4 @@ public class Employee implements Serializable {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
-
 }
